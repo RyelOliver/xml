@@ -1,0 +1,30 @@
+{
+  "name": "xml",
+  "version": "1.0.0",
+  "description": "Parse and format XML.",
+  "main": "xml.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": [
+    "javascript",
+    "xml",
+    "parse",
+    "indent",
+    "prettify",
+    "uglify",
+    "format"
+  ],
+  "author": "Ryel Oliver <rmuchunku@gmail.com> (https://github.com/RyelOliver)",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^6.3.0",
+    "jest": "^24.9.0"
+  },
+  "dependencies": {
+    "@ryel/multiline": "^1.0.0",
+    "xmldom": "^0.1.27"
+  }
+}
