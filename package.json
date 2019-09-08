@@ -1,5 +1,5 @@
 {
-  "name": "xml",
+  "name": "@ryel/xml",
   "version": "1.0.0",
   "description": "Parse and format XML.",
   "main": "xml.js",
@@ -26,5 +26,13 @@
   "dependencies": {
     "@ryel/multiline": "^1.0.0",
     "xmldom": "^0.1.27"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RyelOliver/xml.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RyelOliver/xml/issues"
+  },
+  "homepage": "https://github.com/RyelOliver/xml#readme"
 }
