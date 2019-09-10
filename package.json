@@ -1,7 +1,7 @@
 {
   "name": "@ryel/xml",
-  "version": "1.0.1",
-  "description": "Parse and format XML.",
+  "version": "2.0.0",
+  "description": "Format XML.",
   "main": "xml.js",
   "scripts": {
     "test": "jest",
@@ -11,7 +11,6 @@
   "keywords": [
     "javascript",
     "xml",
-    "parse",
     "indent",
     "prettify",
     "uglify",
@@ -24,8 +23,7 @@
     "jest": "^24.9.0"
   },
   "dependencies": {
-    "@ryel/multiline": "^1.0.0",
-    "xmldom": "^0.1.27"
+    "@ryel/multiline": "^1.0.0"
   },
   "repository": {
     "type": "git",

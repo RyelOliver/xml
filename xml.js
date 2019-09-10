@@ -1,11 +1,5 @@
-const { DOMParser } = require('xmldom');
-
 const TAB = '    ';
 const MAX_NODE_LENGTH = 64;
-
-function parse (xml) {
-    return new DOMParser().parseFromString(xml);
-}
 
 function shouldUnindent (line) {
     return line.match(/^<\/.*>$/);
@@ -88,5 +82,4 @@ function prettify (xml) {
 module.exports = {
     indent,
     prettify,
-    parse,
 };

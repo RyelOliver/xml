@@ -1,5 +1,5 @@
 # xml
-Parse and format XML.
+Format XML.
 
 
 ## API
@@ -14,8 +14,3 @@ Parse and format XML.
 ### `prettify(xml)`
 
 `xml`: string of XML to split into multiple indented lines
-
-
-### `parse(xml)`
-
-`xml`: string of XML to parse into an XML DOM
