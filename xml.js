@@ -39,13 +39,14 @@ function prettifyNode (line) {
     if (node.length <= MAX_NODE_LENGTH)
         return line;
 
+    const start = `${leadingWhiteSpace}<${node.substring(1, node.indexOf(' '))}`;
     const endChars = node.substring(node.length - 2) === '/>' ? '/>' : '>';
     const end = `${leadingWhiteSpace}${endChars}`;
 
-    const nodeParts = node.substring(1, node.length - endChars.length).split(' ');
-    const start = `${leadingWhiteSpace}<${nodeParts.shift()}`;
-
-    const attributes = nodeParts.map(attr => `${leadingWhiteSpace}${TAB}${attr}`);
+    const attributes = node
+        .substring(1, node.length - endChars.length)
+        .match(/(\S+=".*?")/g)
+        .map(attr => `${leadingWhiteSpace}${TAB}${attr}`);
     line = [ start, ...attributes, end ].join('\n');
 
     return line;
@@ -55,14 +56,16 @@ function prettify (xml) {
     const lines = xml
         // replace <name /> with <name/>
         .replace(/(<\/?.*?)\s+(\/?>)/g, '$1$2')
-        // replace <name/><name/> with <name/>\n<name/>
+        // split <name/><name/> onto multiple lines
         .replace(/(<\/?.*?\/?>)(<\/?.*?\/?>)/g, '$1\n$2')
-        // replace <name/>text with <name/>\ntext
-        .replace(/(<\/?.*?\/?>)([^\n])/g, '$1\n$2')
-        // replace text<name/> with text\n<name/>
-        .replace(/([^\n])(<\/?.*?\/?>)/g, '$1\n$2')
+        .replace(/(<\/?.*?\/?>)(<\/?.*?\/?>)/g, '$1\n$2')
+        // split <name/>text<name/>|<name>|</name> onto multiple lines
+        .replace(/(<[^/].*?\/>)([^\n][^<>]+?)(<\/?.*?\/?>)/g, '$1\n$2\n$3')
+        // split <name>text<name/>|<name> onto multiple lines
+        .replace(/(<[^/].*?[^/]>)([^\n][^<>]+?)(<[^/].*?\/?>)/g, '$1\n$2\n$3')
+        // split </name>text<name/>|<name>|</name> onto multiple lines
+        .replace(/(<\/.*?>)([^\n][^<>]+?)(<\/?.*?\/?>)/g, '$1\n$2\n$3')
         .split('\n');
-        // .map(line => line.trim());
     let tabs = 0;
     const indentedLines = lines.map(line => {
         if (shouldUnindent(line)) {
