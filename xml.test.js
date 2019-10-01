@@ -55,7 +55,6 @@ describe('XML', () => {
     });
 
     it('Should indent attributes that are too long', () => {
-
         const actual = XML.prettify(
             '<w:del w:id="1" w:author="Lupe Fiasco" w:date="2000-01-12T13:20:00Z"/>'
         );
@@ -65,6 +64,18 @@ describe('XML', () => {
                 w:author="Lupe Fiasco"
                 w:date="2000-01-12T13:20:00Z"
             />
+        `);
+    });
+
+    it('Should indent attributes without breaking text content onto new lines', () => {
+        const actual = XML.prettify(
+            '<w:t xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'+
+            'On sharp objects in large pockets</w:t>'
+        );
+        expect(actual).toEqual(ml`
+            <w:t
+                xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+            >On sharp objects in large pockets</w:t>
         `);
     });
 });

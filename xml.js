@@ -24,11 +24,18 @@ function indent (line) {
 }
 
 function prettifyNode (line) {
-    const isNode = line.match(/(\s*)(<\/?.*?\/?>)/);
+    const isNode = line.match(/(\s*)(<.*>)/);
     if (!isNode)
         return line;
 
-    const [ , leadingWhiteSpace, node ] = isNode;
+    const [ , leadingWhiteSpace, nodes ] = isNode;
+
+    // Check for text after the node
+    let node = nodes;
+    let afterNode;
+    if (nodes.match(/(<.*?>).+/)) {
+        ([ , node, afterNode ] = nodes.match(/(<.*?>)(.+)/));
+    }
 
     if (node.length <= MAX_NODE_LENGTH)
         return line;
@@ -42,6 +49,9 @@ function prettifyNode (line) {
         .match(/(\S+=".*?")/g)
         .map(attr => `${leadingWhiteSpace}${TAB}${attr}`);
     line = [ start, ...attributes, end ].join('\n');
+
+    if (afterNode)
+        line += afterNode;
 
     return line;
 }
